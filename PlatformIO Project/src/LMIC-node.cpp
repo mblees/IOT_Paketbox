@@ -56,7 +56,12 @@
 //  █ █ █▀▀ █▀▀ █▀▄   █▀▀ █▀█ █▀▄ █▀▀   █▀▄ █▀▀ █▀▀ ▀█▀ █▀█
 //  █ █ ▀▀█ █▀▀ █▀▄   █   █ █ █ █ █▀▀   █▀▄ █▀▀ █ █  █  █ █
 //  ▀▀▀ ▀▀▀ ▀▀▀ ▀ ▀   ▀▀▀ ▀▀▀ ▀▀  ▀▀▀   ▀▀  ▀▀▀ ▀▀▀ ▀▀▀ ▀ ▀
+#include "reed_sensor.h"
+#include "supersonic_sensor.h"
+#include "rfid.h"
+#include "stepper.h"
 
+uint8_t uplink_flag = 0;
 
 const uint8_t payloadBufferLength = 4;    // Adjust to fit max payload length
 
@@ -725,7 +730,17 @@ void processWork(ostime_t doWorkJobTimeStamp)
         // For simplicity LMIC-node uses a counter to simulate a sensor. 
         // The counter is increased automatically by getCounterValue()
         // and can be reset with a 'reset counter' command downlink message.
+        
+        if(uplink_flag == 0){
+            open_door();
+            uplink_flag = 1;
+        }
+        else{
+            close_door();
+            uplink_flag = 0;
+        }
 
+        open_door();
         uint16_t counterValue = getCounterValue();
         ostime_t timestamp = os_getTime();
 
@@ -805,13 +820,6 @@ void processDownlink(ostime_t txCompleteTimestamp, uint8_t fPort, uint8_t* data,
 //  █ █ ▀▀█ █▀▀ █▀▄   █   █ █ █ █ █▀▀   █▀▀ █ █ █ █
 //  ▀▀▀ ▀▀▀ ▀▀▀ ▀ ▀   ▀▀▀ ▀▀▀ ▀▀  ▀▀▀   ▀▀▀ ▀ ▀ ▀▀ 
 
-
-#include "reed_sensor.h"
-#include "supersonic_sensor.h"
-#include "rfid.h"
-
-uint8_t uplink_flag = 0;
-
 void set_flag(){
     uplink_flag = 1;
 }
@@ -861,8 +869,9 @@ void setup()
 
     init_reed();
     init_us();
-    init_rfid();
+    //init_rfid();
     reset_flag();
+    init_stepper();
 
     resetCounter();
 
