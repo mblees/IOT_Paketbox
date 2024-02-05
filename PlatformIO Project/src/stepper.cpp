@@ -10,13 +10,13 @@ void init_stepper() {
 }
 
 void open_door(){
-    float moveRev = 30*SteppDegree;
-    stepper1.moveTo(moveRev);
+    float moveRev = 45*SteppDegree;
+    stepper1.moveTo(-moveRev);
     stepper1.runToPosition();
 }
 
 void close_door(){
-    float moveRev = 30*SteppDegree;
-    stepper1.moveTo(-moveRev);
+    float moveRev = 45*SteppDegree;
+    stepper1.moveTo(moveRev);
     stepper1.runToPosition();
 }

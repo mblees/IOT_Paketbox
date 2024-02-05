@@ -60,6 +60,7 @@
 #include "supersonic_sensor.h"
 #include "rfid.h"
 #include "stepper.h"
+#include "matrix.h"
 
 uint8_t uplink_flag = 0;
 
@@ -740,7 +741,6 @@ void processWork(ostime_t doWorkJobTimeStamp)
             uplink_flag = 0;
         }
 
-        open_door();
         uint16_t counterValue = getCounterValue();
         ostime_t timestamp = os_getTime();
 
@@ -867,8 +867,8 @@ void setup()
 //  █ █ ▀▀█ █▀▀ █▀▄   █   █ █ █ █ █▀▀   █▀▄ █▀▀ █ █  █  █ █
 //  ▀▀▀ ▀▀▀ ▀▀▀ ▀ ▀   ▀▀▀ ▀▀▀ ▀▀  ▀▀▀   ▀▀  ▀▀▀ ▀▀▀ ▀▀▀ ▀ ▀
 
-    init_reed();
-    init_us();
+    //init_reed();
+    //init_us();
     //init_rfid();
     reset_flag();
     init_stepper();
@@ -891,5 +891,6 @@ void setup()
 
 void loop() 
 {
+    Serial.println(getKey());
     os_runloop_once();
 }

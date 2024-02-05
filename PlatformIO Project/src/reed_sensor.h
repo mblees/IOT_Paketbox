@@ -8,7 +8,7 @@
 extern "C" {
 #endif
 
-#define reed_data_pin 37
+#define reed_data_pin 36
 
 uint8_t read_reed();
 void init_reed();

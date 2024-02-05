@@ -11,7 +11,7 @@ extern "C" {
 #define MAX_DISTANCE 300
 
 #define us_trig_pin 22
-#define us_echo_pin 36
+#define us_echo_pin 37
 
 float read_us();
 void init_us();
