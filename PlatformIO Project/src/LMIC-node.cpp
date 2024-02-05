@@ -806,6 +806,20 @@ void processDownlink(ostime_t txCompleteTimestamp, uint8_t fPort, uint8_t* data,
 //  ▀▀▀ ▀▀▀ ▀▀▀ ▀ ▀   ▀▀▀ ▀▀▀ ▀▀  ▀▀▀   ▀▀▀ ▀ ▀ ▀▀ 
 
 
+#include "reed_sensor.h"
+#include "supersonic_sensor.h"
+#include "rfid.h"
+
+uint8_t uplink_flag = 0;
+
+void set_flag(){
+    uplink_flag = 1;
+}
+
+void reset_flag(){
+    uplink_flag = 0;
+}
+
 void setup() 
 {
     // boardInit(InitType::Hardware) must be called at start of setup() before anything else.
@@ -845,7 +859,10 @@ void setup()
 //  █ █ ▀▀█ █▀▀ █▀▄   █   █ █ █ █ █▀▀   █▀▄ █▀▀ █ █  █  █ █
 //  ▀▀▀ ▀▀▀ ▀▀▀ ▀ ▀   ▀▀▀ ▀▀▀ ▀▀  ▀▀▀   ▀▀  ▀▀▀ ▀▀▀ ▀▀▀ ▀ ▀
 
-    // Place code for initializing sensors etc. here.
+    init_reed();
+    init_us();
+    init_rfid();
+    reset_flag();
 
     resetCounter();
 
