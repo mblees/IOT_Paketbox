@@ -38,7 +38,7 @@
 
 ### 4. Pinbelegung
 
-![Screenshot 2024-02-06 195223](https://hackmd.io/_uploads/rktxlZlsa.png)
+![Screenshot 2024-02-06 195223](https://github.com/mblees/IOT_Paketbox/assets/104490472/6597162c-f7ba-4976-bddb-5b58aae3a955)
 
 | Gerät                | Pins                    |
 |----------------------|-------------------------|
