@@ -23,7 +23,7 @@
 
    #### 1.4 Verschlussmechanismus
    Der Verschlussmechanismus besteht aus einem Stepper Motor mit einem Zahnrad, welches einen Kolben durch 2 Ösen schiebt. Die Ösen sind jeweils am Deckel oder am Körper der Box befestigt und verhindern, wenn der Kolben ausgefahren ist, dass sich der Deckel öffnen lässt.
-  <img src="https://github.com/mblees/IOT_Paketbox/assets/104490472/fe967090-578b-4d9d-857b-74d28b1b5561" alt="WhatsApp Bild 2024-02-06 um 20 21 44_378a7dea" width="200" height="200">
+  ![WhatsApp Bild 2024-02-06 um 20 21 44_378a7dea](https://github.com/mblees/IOT_Paketbox/assets/104490472/fe967090-578b-4d9d-857b-74d28b1b5561)
 
    Anmerkung: Hier handelt es sich Budgetbedingt um 3D-gedruckte Teile welche in eienr realen Anwendung nicht sicher genug wären um ein Paket mit Wert zu sichern.
 
@@ -38,7 +38,8 @@
 
    #### 2.2 Python Service
    Der Service nutzt die HomeAssistantAPI, um Push-Benachrichtigungen an Handys zu schicken und die `paho-mqtt`-Bibliothek, um die von TTN empfangenen LoRa-Daten auszuwerten und daraufhin einen `notify`-Service in HomeAssistant auszulösen.
-   ![notify](https://github.com/mblees/IOT_Paketbox/assets/104490472/f75a16c0-de0b-48ad-9c84-602454432d41)
+   <img src="https://github.com/mblees/IOT_Paketbox/assets/104490472/f75a16c0-de0b-48ad-9c84-602454432d41" alt="notify" width="100" height="100">
+
 
 ### 3. Datenübertragung
    Die Daten, die mit den Sensoren erfasst werden, werden beim Öffnen und Schließen der Box vom Mikrocontroller über LoRa und The Things Network (TTN) gesendet. TTN stellt die Daten über einen MQTT-Server zur Verfügung, welche wir mithilfe eines Python-Services abfangen und daraufhin einen Service in HomeAssistant auslösen. Der Service in HomeAssistant führt dann wiederum dazu, dass eine Push-Benachrichtigung auf dem Handy des Besitzers der Box erscheint.
