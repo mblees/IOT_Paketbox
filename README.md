@@ -42,6 +42,7 @@
 
    #### 2.3 HomeAssistant
    Der HomeAssistant Server läuft in meinem Fall auf einer Oracle VM VirtualBox auf dem selben PC auf welchem auch der Python Service läuft. Die beiden Programme sind allerdings nur in soweit anhängig voneienander, dass sie im selben Wlan ausgeführt werden müssen.
+   ![Screenshot 2024-02-06 204836](https://github.com/mblees/IOT_Paketbox/assets/104490472/3eea11d3-cd80-485e-a917-ccd353d0eec2)
 
 ### 3. Datenübertragung
    Die Daten, die mit den Sensoren erfasst werden, werden beim Öffnen und Schließen der Box vom Mikrocontroller über LoRa und The Things Network (TTN) gesendet. TTN stellt die Daten über einen MQTT-Server zur Verfügung, welche wir mithilfe eines Python-Services abfangen und daraufhin einen Service in HomeAssistant auslösen. Der Service in HomeAssistant führt dann wiederum dazu, dass eine Push-Benachrichtigung auf dem Handy des Besitzers der Box erscheint.
@@ -49,7 +50,6 @@
    Sensoren -> ESP32 -> LoRa -> TTN -> MQTT -> Python Service -> HomeAssistant -> Mobiltelefon
 
 ### 4. Pinbelegung
-
 ![Screenshot 2024-02-06 195223](https://github.com/mblees/IOT_Paketbox/assets/104490472/6597162c-f7ba-4976-bddb-5b58aae3a955)
 
 | Gerät                | Pins                    |
