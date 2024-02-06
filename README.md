@@ -15,6 +15,7 @@
        - Wird mit 5V über den dazugehörigen Motortreiber versorgt.
    - Matrixtastatur: [Link zur Tastatur](https://www.az-delivery.de/products/4x4-matrix-keypad)
        - Aufgrund mangelnder Pins verwende ich die 4x4 Matrix nur als 2x2 Matrix mit den Tasten 1, 2, 4, 5.
+   - Stromversorgung durch eine Powerbank mit 5V Ausgang.
 
    #### 1.3 Mikroprozessor
    Beim Mikroprozessor handelt es sich um den WiFi-LoRa-32-V2 der Firma Heltec Automation mit eingebautem LoRa-Modul, Display und integrierter LED. Um Energie zu sparen, werden sowohl das Display als auch die integrierte LED nicht verwendet.
