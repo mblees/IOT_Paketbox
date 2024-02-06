@@ -1,5 +1,5 @@
 #include <stepper.h>
-
+//                               1   3   2   4
 AccelStepper stepper1(Fullstep, 12, 13, 21, 17);
 
 void init_stepper() {
@@ -10,13 +10,13 @@ void init_stepper() {
 }
 
 void open_door(){
-    float moveRev = 45*SteppDegree;
+    float moveRev = 60*SteppDegree;
     stepper1.moveTo(-moveRev);
     stepper1.runToPosition();
 }
 
 void close_door(){
-    float moveRev = 45*SteppDegree;
+    float moveRev = 60*SteppDegree;
     stepper1.moveTo(moveRev);
     stepper1.runToPosition();
 }

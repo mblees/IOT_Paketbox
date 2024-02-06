@@ -740,10 +740,14 @@ void processWork(ostime_t doWorkJobTimeStamp)
         uint16_t distance = (uint16_t) distance_float;
         uint16_t reed = read_reed(); 
         ostime_t timestamp = os_getTime();
+
         Serial.print("Distance: ");
         Serial.print(distance_float);
         Serial.print(", ");
         Serial.println(distance);
+
+        Serial.print("Reed: ");
+        Serial.println(reed);
 
         #ifdef USE_DISPLAY
             // Interval and Counter values are combined on a single row.
@@ -894,5 +898,44 @@ uint8_t my_counter = 0;
 
 void loop() 
 {   
+
+    const uint8_t password[4] = {'1', '2', '4', '5'};
+    static uint8_t input[4] = {0x00, 0x00, 0x00, 0x00};
+    static bool waitingforreset = false;
+
+    char input_byte = getKey();
+    static uint8_t input_index = 0;
+
+    if(input_byte != ' ' && !waitingforreset){
+        if(input_byte == '1'){
+            input_index = 0;
+            input[input_index] = input_byte;
+            Serial.print("Input Reset: ");
+            Serial.println(input_byte);
+        }
+        else{
+            input_index++;
+            input[input_index] = input_byte;
+            Serial.print("Input Normal: ");
+            Serial.println(input_byte);
+        }
+        if(input_index == 3){
+            if(input[0] == password[0] && input[1] == password[1] && input[2] == password[2] && input[3] == password[3]){
+                Serial.println("Password correct");
+                close_door();
+                waitingforreset = true;
+                
+            }
+            input_index = 0;
+            input[0] = 0x00;
+            input[1] = 0x00;
+            input[2] = 0x00;
+            input[3] = 0x00;
+        }
+    }
+    if(waitingforreset && (read_reed() == 0)){
+        open_door();
+        waitingforreset = false;
+    }
     os_runloop_once();
 }
