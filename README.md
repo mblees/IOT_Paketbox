@@ -20,6 +20,12 @@
    #### 1.3 Mikroprozessor
    Beim Mikroprozessor handelt es sich um den WiFi-LoRa-32-V2 der Firma Heltec Automation mit eingebautem LoRa-Modul, Display und integrierter LED. Um Energie zu sparen, werden sowohl das Display als auch die integrierte LED nicht verwendet.
 
+   #### 1.4 Verschlussmechanismus
+   Der Verschlussmechanismus besteht aus einem Stepper Motor mit einem Zahnrad, welches einen Kolben durch 2 Ösen schiebt. Die Ösen sind jeweils am Deckel oder am Körper der Box befestigt und verhindern, wenn der Kolben ausgefahren ist, dass sich der Deckel öffnen lässt.
+   ![WhatsApp Bild 2024-02-06 um 20 21 44_378a7dea](https://github.com/mblees/IOT_Paketbox/assets/104490472/fe967090-578b-4d9d-857b-74d28b1b5561)
+
+   Anmerkung: Hier handelt es sich Budgetverschuldet um 3D-gedruckte Teile welche in eienr realen Anwendung nicht sicher genug wären um ein Paket mit Wert zu sichern.
+
 ### 2. Software
    #### 2.1 C++-Part / Mikroprozessorprogrammierung
    Die Programmierung des Controllers beruht auf dem Framework/Example LMIC-node von lnlp ([GitHub-Link](https://github.com/lnlp/LMIC-node)). Ich habe eine logische Steuerung in der `main()`-Funktion hinzugefügt sowie Bibliotheken für alle Peripheriekomponenten:
