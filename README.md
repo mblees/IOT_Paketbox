@@ -23,6 +23,7 @@
 
    #### 1.4 Verschlussmechanismus
    Der Verschlussmechanismus besteht aus einem Stepper Motor mit einem Zahnrad, welches einen Kolben durch 2 Ösen schiebt. Die Ösen sind jeweils am Deckel oder am Körper der Box befestigt und verhindern, wenn der Kolben ausgefahren ist, dass sich der Deckel öffnen lässt.
+   
   ![WhatsApp Bild 2024-02-06 um 20 21 44_378a7dea](https://github.com/mblees/IOT_Paketbox/assets/104490472/fe967090-578b-4d9d-857b-74d28b1b5561)
 
    Anmerkung: Hier handelt es sich Budgetbedingt um 3D-gedruckte Teile welche in eienr realen Anwendung nicht sicher genug wären um ein Paket mit Wert zu sichern.
@@ -38,10 +39,12 @@
 
    #### 2.2 Python Service
    Der Service nutzt die HomeAssistantAPI, um Push-Benachrichtigungen an Handys zu schicken und die `paho-mqtt`-Bibliothek, um die von TTN empfangenen LoRa-Daten auszuwerten und daraufhin einen `notify`-Service in HomeAssistant auszulösen.
+   
    <img src="https://github.com/mblees/IOT_Paketbox/assets/104490472/f75a16c0-de0b-48ad-9c84-602454432d41" alt="notify" width="800" height="800">
 
    #### 2.3 HomeAssistant
    Der HomeAssistant Server läuft in meinem Fall auf einer Oracle VM VirtualBox auf dem selben PC auf welchem auch der Python Service läuft. Die beiden Programme sind allerdings nur in soweit anhängig voneienander, dass sie im selben Wlan ausgeführt werden müssen.
+   
    ![Screenshot 2024-02-06 204836](https://github.com/mblees/IOT_Paketbox/assets/104490472/3eea11d3-cd80-485e-a917-ccd353d0eec2)
 
 ### 3. Datenübertragung
