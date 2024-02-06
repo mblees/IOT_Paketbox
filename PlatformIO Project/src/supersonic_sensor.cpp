@@ -31,3 +31,24 @@ float read_us()
         return distance;
     }
 }
+
+float read_us_average(){
+    float distance = 0;
+    float additive = 0;
+    uint8_t confirmation_counter = 0;
+
+    for(int i = 0; i <= 10; i++){
+        additive = read_us();
+        if(additive == -1){
+            i--;
+            confirmation_counter++;
+        }
+        else{
+            distance += additive;
+        }
+        if(confirmation_counter == 10){
+            return -1;
+        }
+    }
+    return distance / 10;
+}

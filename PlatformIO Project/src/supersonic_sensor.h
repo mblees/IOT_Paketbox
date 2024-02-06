@@ -14,6 +14,7 @@ extern "C" {
 #define us_echo_pin 37
 
 float read_us();
+float read_us_average();
 void init_us();
 
 #ifdef __cplusplus

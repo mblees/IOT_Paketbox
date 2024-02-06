@@ -1,11 +1,12 @@
 from homeassistant_api import Client
 import paho.mqtt.client as mqtt
+import json
 
 broker_address = "eu1.cloud.thethings.network"
 broker_port = 1883
 username = "paketbox-iot@ttn"
 passkey = "NNSXS.VBOIQGBJTR2OQYPPH2PZP2WIOQWY532HTYXS2EY.BIUKFEZFWS2L56VCH4JBWJQBLMWUH3OJPCSLWKPFJJBHUTRHYAIQ"
-topic = "v3/paketbox-iot@ttn/devices/eui-70b3d57ed0064b51/up"
+topic = "v3/paketbox-iot@ttn/devices/eui-70b3d57ed0064c21/up"
 
 
 URL = 'http://192.168.0.164:8123/api'
@@ -23,7 +24,17 @@ def on_connect(client, userdata, flags, rc):
 
 
 def on_message(client, userdata, msg):
-    print(f"Received message: {msg.payload.decode()} on topic {msg.topic}")
+    print(f"{msg.payload.decode()}")
+    payload = msg.payload.decode('utf-8')  # Decode payload bytes to string
+    try:
+        data = json.loads(payload)
+
+        uplink_message = data["uplink_message"]
+        print(json.dumps(uplink_message, indent=4))
+    except json.JSONDecodeError as e:
+        print("Error decoding JSON:", e)
+
+    print(uplink_message)
 
     home_assistant_client = Client(URL, TOKEN)
     home_assistant_client.trigger_service('notify', 'notify', message='Es ist ein Paket in der Paketbox angekommen!', title='Alarm')

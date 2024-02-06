@@ -725,24 +725,25 @@ void processWork(ostime_t doWorkJobTimeStamp)
     // messages if anything needs to be transmitted.
 
     // Skip processWork if using OTAA and still joining.
+
+    Serial.println("Arrived in processWork()");
+
     if (LMIC.devaddr != 0)
     {
         // Collect input data.
         // For simplicity LMIC-node uses a counter to simulate a sensor. 
         // The counter is increased automatically by getCounterValue()
         // and can be reset with a 'reset counter' command downlink message.
-        
-        if(uplink_flag == 0){
-            open_door();
-            uplink_flag = 1;
-        }
-        else{
-            close_door();
-            uplink_flag = 0;
-        }
-
+        Serial.println("Collecting input data...");
         uint16_t counterValue = getCounterValue();
+        float distance_float = read_us_average();
+        uint16_t distance = (uint16_t) distance_float;
+        uint16_t reed = read_reed(); 
         ostime_t timestamp = os_getTime();
+        Serial.print("Distance: ");
+        Serial.print(distance_float);
+        Serial.print(", ");
+        Serial.println(distance);
 
         #ifdef USE_DISPLAY
             // Interval and Counter values are combined on a single row.
@@ -781,9 +782,10 @@ void processWork(ostime_t doWorkJobTimeStamp)
         {
             // Prepare uplink payload.
             uint8_t fPort = 10;
-            payloadBuffer[0] = counterValue >> 8;
-            payloadBuffer[1] = counterValue & 0xFF;
-            uint8_t payloadLength = 2;
+            payloadBuffer[0] = distance;
+            payloadBuffer[1] = reed;
+            payloadBuffer[2] = counterValue >> 8;
+            uint8_t payloadLength = 3;
 
             scheduleUplink(fPort, payloadBuffer, payloadLength);
         }
@@ -868,7 +870,7 @@ void setup()
 //  ▀▀▀ ▀▀▀ ▀▀▀ ▀ ▀   ▀▀▀ ▀▀▀ ▀▀  ▀▀▀   ▀▀  ▀▀▀ ▀▀▀ ▀▀▀ ▀ ▀
 
     init_reed();
-    //init_us();
+    init_us();
     //init_rfid();
     reset_flag();
     init_stepper();
@@ -888,8 +890,9 @@ void setup()
     os_setCallback(&doWorkJob, doWorkCallback);
 }
 
+uint8_t my_counter = 0;
 
 void loop() 
-{
+{   
     os_runloop_once();
 }
