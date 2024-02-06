@@ -867,7 +867,7 @@ void setup()
 //  █ █ ▀▀█ █▀▀ █▀▄   █   █ █ █ █ █▀▀   █▀▄ █▀▀ █ █  █  █ █
 //  ▀▀▀ ▀▀▀ ▀▀▀ ▀ ▀   ▀▀▀ ▀▀▀ ▀▀  ▀▀▀   ▀▀  ▀▀▀ ▀▀▀ ▀▀▀ ▀ ▀
 
-    //init_reed();
+    init_reed();
     //init_us();
     //init_rfid();
     reset_flag();
@@ -891,6 +891,5 @@ void setup()
 
 void loop() 
 {
-    Serial.println(getKey());
     os_runloop_once();
 }
