@@ -1,4 +1,5 @@
 # IoT-Projekt – Paketbox Dokumentation
+![WhatsApp Bild 2024-02-06 um 20 36 11_9b5375aa](https://github.com/mblees/IOT_Paketbox/assets/104490472/336fe2ea-0bf8-496e-8120-b985baa9306d)
 
 ## Übersicht:
 
@@ -37,6 +38,7 @@
 
    #### 2.2 Python Service
    Der Service nutzt die HomeAssistantAPI, um Push-Benachrichtigungen an Handys zu schicken und die `paho-mqtt`-Bibliothek, um die von TTN empfangenen LoRa-Daten auszuwerten und daraufhin einen `notify`-Service in HomeAssistant auszulösen.
+   ![notify](https://github.com/mblees/IOT_Paketbox/assets/104490472/f75a16c0-de0b-48ad-9c84-602454432d41)
 
 ### 3. Datenübertragung
    Die Daten, die mit den Sensoren erfasst werden, werden beim Öffnen und Schließen der Box vom Mikrocontroller über LoRa und The Things Network (TTN) gesendet. TTN stellt die Daten über einen MQTT-Server zur Verfügung, welche wir mithilfe eines Python-Services abfangen und daraufhin einen Service in HomeAssistant auslösen. Der Service in HomeAssistant führt dann wiederum dazu, dass eine Push-Benachrichtigung auf dem Handy des Besitzers der Box erscheint.
