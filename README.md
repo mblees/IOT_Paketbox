@@ -40,6 +40,8 @@
    Der Service nutzt die HomeAssistantAPI, um Push-Benachrichtigungen an Handys zu schicken und die `paho-mqtt`-Bibliothek, um die von TTN empfangenen LoRa-Daten auszuwerten und daraufhin einen `notify`-Service in HomeAssistant auszulösen.
    <img src="https://github.com/mblees/IOT_Paketbox/assets/104490472/f75a16c0-de0b-48ad-9c84-602454432d41" alt="notify" width="800" height="800">
 
+   #### 2.3 HomeAssistant
+   Der HomeAssistant Server läuft in meinem Fall auf einer Oracle VM VirtualBox auf dem selben PC auf welchem auch der Python Service läuft. Die beiden Programme sind allerdings nur in soweit anhängig voneienander, dass sie im selben Wlan ausgeführt werden müssen.
 
 ### 3. Datenübertragung
    Die Daten, die mit den Sensoren erfasst werden, werden beim Öffnen und Schließen der Box vom Mikrocontroller über LoRa und The Things Network (TTN) gesendet. TTN stellt die Daten über einen MQTT-Server zur Verfügung, welche wir mithilfe eines Python-Services abfangen und daraufhin einen Service in HomeAssistant auslösen. Der Service in HomeAssistant führt dann wiederum dazu, dass eine Push-Benachrichtigung auf dem Handy des Besitzers der Box erscheint.
