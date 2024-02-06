@@ -62,8 +62,6 @@
 #include "stepper.h"
 #include "matrix.h"
 
-uint8_t uplink_flag = 0;
-
 const uint8_t payloadBufferLength = 4;    // Adjust to fit max payload length
 
 
@@ -788,8 +786,7 @@ void processWork(ostime_t doWorkJobTimeStamp)
             uint8_t fPort = 10;
             payloadBuffer[0] = distance;
             payloadBuffer[1] = reed;
-            payloadBuffer[2] = counterValue >> 8;
-            uint8_t payloadLength = 3;
+            uint8_t payloadLength = 2;
 
             scheduleUplink(fPort, payloadBuffer, payloadLength);
         }
@@ -825,15 +822,6 @@ void processDownlink(ostime_t txCompleteTimestamp, uint8_t fPort, uint8_t* data,
 //  █ █ █▀▀ █▀▀ █▀▄   █▀▀ █▀█ █▀▄ █▀▀   █▀▀ █▀█ █▀▄
 //  █ █ ▀▀█ █▀▀ █▀▄   █   █ █ █ █ █▀▀   █▀▀ █ █ █ █
 //  ▀▀▀ ▀▀▀ ▀▀▀ ▀ ▀   ▀▀▀ ▀▀▀ ▀▀  ▀▀▀   ▀▀▀ ▀ ▀ ▀▀ 
-
-void set_flag(){
-    uplink_flag = 1;
-}
-
-void reset_flag(){
-    uplink_flag = 0;
-}
-
 void setup() 
 {
     // boardInit(InitType::Hardware) must be called at start of setup() before anything else.
@@ -876,7 +864,6 @@ void setup()
     init_reed();
     init_us();
     //init_rfid();
-    reset_flag();
     init_stepper();
 
     resetCounter();
@@ -922,9 +909,11 @@ void loop()
         if(input_index == 3){
             if(input[0] == password[0] && input[1] == password[1] && input[2] == password[2] && input[3] == password[3]){
                 Serial.println("Password correct");
-                close_door();
+                open_door();
+                Serial.println("Waiting for door to open...");
+                delay(3000); //give user time to open door
+                Serial.println("Door opened");
                 waitingforreset = true;
-                
             }
             input_index = 0;
             input[0] = 0x00;
@@ -934,8 +923,12 @@ void loop()
         }
     }
     if(waitingforreset && (read_reed() == 0)){
-        open_door();
+        Serial.println("Door closed");
+        close_door();
         waitingforreset = false;
     }
+
+    Serial.println(read_us());
+
     os_runloop_once();
 }
