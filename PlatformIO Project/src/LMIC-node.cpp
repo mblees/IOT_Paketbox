@@ -69,7 +69,7 @@ const uint8_t payloadBufferLength = 4;    // Adjust to fit max payload length
 //  █ █ ▀▀█ █▀▀ █▀▄   █   █ █ █ █ █▀▀   █▀▀ █ █ █ █
 //  ▀▀▀ ▀▀▀ ▀▀▀ ▀ ▀   ▀▀▀ ▀▀▀ ▀▀  ▀▀▀   ▀▀▀ ▀ ▀ ▀▀ 
 
-
+bool sendNotfication = false;
 uint8_t payloadBuffer[payloadBufferLength];
 static osjob_t doWorkJob;
 uint32_t doWorkIntervalSeconds = DO_WORK_INTERVAL_SECONDS;  // Change value in platformio.ini
@@ -726,7 +726,7 @@ void processWork(ostime_t doWorkJobTimeStamp)
 
     Serial.println("Arrived in processWork()");
 
-    if (LMIC.devaddr != 0)
+    if (LMIC.devaddr != 0 && sendNotfication == true)
     {
         // Collect input data.
         // For simplicity LMIC-node uses a counter to simulate a sensor. 
@@ -788,6 +788,7 @@ void processWork(ostime_t doWorkJobTimeStamp)
             payloadBuffer[1] = reed;
             uint8_t payloadLength = 2;
 
+            sendNotfication = false;
             scheduleUplink(fPort, payloadBuffer, payloadLength);
         }
     }
@@ -914,6 +915,7 @@ void loop()
                 delay(3000); //give user time to open door
                 Serial.println("Door opened");
                 waitingforreset = true;
+                sendNotfication = true;
             }
             input_index = 0;
             input[0] = 0x00;
@@ -927,8 +929,5 @@ void loop()
         close_door();
         waitingforreset = false;
     }
-
-    Serial.println(read_us());
-
     os_runloop_once();
 }
